@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by 华南理工大学物理与光电学院 on 2019/3/9.
@@ -26,7 +27,7 @@ import butterknife.BindView;
 
 public class ChartActivity extends AppCompatActivity {
 
-    @BindView(R.id.rl_tabbar)
+    @BindView(R.id.tv_title)
     TextView chart_title;
 
     float value;
@@ -35,6 +36,15 @@ public class ChartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
+        ButterKnife.bind(this);
+
+        Bundle bundleObject = getIntent().getExtras();
+
+        String title = bundleObject.getString("param");
+
+        ArrayList<DetailModel> dm = (ArrayList<DetailModel>) bundleObject.getSerializable("data");
+
+        chart_title.setText(title);
 
         LineChart chart = (LineChart) findViewById(R.id.chart);
 
@@ -46,19 +56,10 @@ public class ChartActivity extends AppCompatActivity {
             }
         });
 
-        try{
-            Bundle bundleObject = getIntent().getExtras();
-
-            ArrayList<DetailModel> dm = (ArrayList<DetailModel>) bundleObject.getSerializable("data");
             Collections.reverse(dm);
-
             LineData cLineData = makeLineData(dm);
-
             setChartStyle(chart,cLineData,Color.WHITE);
 
-        }catch(Exception e){
-            e.printStackTrace();
-        }
 
     }
 
