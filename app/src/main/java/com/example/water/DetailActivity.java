@@ -51,7 +51,7 @@ public class DetailActivity extends BaseListViewActicty {
                 Intent intent = new Intent(DetailActivity.this,ChartActivity.class);
                 Bundle bundleObject = new Bundle();
                 bundleObject.putSerializable("data",dm);
-                bundleObject.putString("param",datastreamId);
+                bundleObject.putString("paramId",datastreamId);
                 intent.putExtras(bundleObject);
                 startActivity(intent);
             }

@@ -40,7 +40,7 @@ public class ChartActivity extends AppCompatActivity {
 
         Bundle bundleObject = getIntent().getExtras();
 
-        String title = bundleObject.getString("param");
+        String title = bundleObject.getString("paramId");
 
         ArrayList<DetailModel> dm = (ArrayList<DetailModel>) bundleObject.getSerializable("data");
 
