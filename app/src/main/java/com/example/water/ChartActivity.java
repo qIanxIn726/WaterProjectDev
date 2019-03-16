@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.example.water.Model.DetailModel;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -21,6 +21,10 @@ import java.util.Collections;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.graphics.Color.CYAN;
+import static android.graphics.Color.GREEN;
+import static android.graphics.Color.YELLOW;
+
 /**
  * Created by 华南理工大学物理与光电学院 on 2019/3/9.
  */
@@ -29,6 +33,8 @@ public class ChartActivity extends AppCompatActivity {
 
     @BindView(R.id.tv_title)
     TextView chart_title;
+
+    String symbol;
 
     float value;
 
@@ -41,6 +47,34 @@ public class ChartActivity extends AppCompatActivity {
         Bundle bundleObject = getIntent().getExtras();
 
         String title = bundleObject.getString("paramId");
+        switch(title){
+            case "Cod":
+                symbol = "mg/l";
+                break;
+            case "Toc":
+                symbol = "mg/l";
+                break;
+            case "Bod":
+                symbol = "mg/l";
+                break;
+            case "Ntu":
+                symbol = "ntu";
+                break;
+            case "Tss":
+                symbol = "mg/l";
+                break;
+            case "Tempreture":
+                symbol = "℃";
+                break;
+            case "PH":
+                symbol = "无";
+                break;
+            case "TDS":
+                symbol = "mg/l";
+                break;
+            default:
+                break;
+        }
 
         ArrayList<DetailModel> dm = (ArrayList<DetailModel>) bundleObject.getSerializable("data");
 
@@ -49,33 +83,42 @@ public class ChartActivity extends AppCompatActivity {
         LineChart chart = (LineChart) findViewById(R.id.chart);
 
         ImageButton btnBack = (ImageButton) findViewById(R.id.btn_back);
-        btnBack.setOnClickListener(new View.OnClickListener(){
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 finish();
             }
         });
 
-            Collections.reverse(dm);
-            LineData cLineData = makeLineData(dm);
-            setChartStyle(chart,cLineData,Color.WHITE);
+        Collections.reverse(dm);
+        LineData cLineData = makeLineData(dm);
+        setChartStyle(chart, cLineData, Color.WHITE);
+
+        MarkerView mv = new LineChartMarkView(this);
+        chart.setMarkerView(mv);
 
 
     }
 
-    private LineData makeLineData(ArrayList detailModel){
+    private LineData makeLineData(ArrayList detailModel) {
         ArrayList<String> x = new ArrayList<>();
-        ArrayList<Entry> y = new ArrayList<Entry>();
+        ArrayList<Entry> y = new ArrayList<>();
 
-        for (int i = 0;i < detailModel.size();i++){
+        //100表示存入最近一百条历史数据
+        final String[] values = new String[100];
+
+        for (int i = 0; i < detailModel.size(); i++) {
             DetailModel dModel = (DetailModel) detailModel.get(i);
+
             x.add(dModel.getAt());
+
             value = Float.parseFloat(dModel.getValue());
-            Entry entry = new Entry(value,i);
+            Entry entry = new Entry(value, i);
             y.add(entry);
         }
 
-        LineDataSet cLineDataSet = new LineDataSet(y,"");
+
+        LineDataSet cLineDataSet = new LineDataSet(y, "");
 
         cLineDataSet.setLineWidth(3.0f);
 
@@ -83,15 +126,20 @@ public class ChartActivity extends AppCompatActivity {
 
         cLineDataSet.setColor(Color.DKGRAY);
 
-        cLineDataSet.setCircleColor(Color.GREEN);
+        cLineDataSet.setCircleColor(GREEN);
 
         cLineDataSet.setDrawHighlightIndicators(true);
 
-        cLineDataSet.setHighLightColor(Color.CYAN);
+        cLineDataSet.setHighLightColor(YELLOW);
 
         cLineDataSet.setValueTextSize(10.0f);
 
-        cLineDataSet.setCircleColorHole(Color.YELLOW);
+        cLineDataSet.setCircleColorHole(YELLOW);
+
+        cLineDataSet.setDrawFilled(true);
+
+        cLineDataSet.setFillColor(CYAN);
+
 
         /*cLineDataSet.setValueFormatter(new ValueFormatter(){
             @Override
@@ -106,21 +154,22 @@ public class ChartActivity extends AppCompatActivity {
         ArrayList<LineDataSet> cLineDataSets = new ArrayList<LineDataSet>();
         cLineDataSets.add(cLineDataSet);
 
-        LineData cLineData = new LineData(x,cLineDataSets);
+        LineData cLineData = new LineData(x, cLineDataSets);
 
         return cLineData;
     }
 
-    private void setChartStyle(LineChart mLineChart,LineData lineData,int color){
+    private void setChartStyle(LineChart mLineChart, LineData lineData, int color) {
+
         mLineChart.setDrawBorders(false);
 
-        mLineChart.setDescription("历史数据");
+        mLineChart.setDescription("单位：" + symbol);
 
         mLineChart.setNoDataTextDescription("没有数据熬");
 
         mLineChart.setDrawGridBackground(false);
 
-        mLineChart.setGridBackgroundColor(Color.CYAN);
+        mLineChart.setGridBackgroundColor(CYAN);
 
         mLineChart.setTouchEnabled(true);
 
@@ -138,17 +187,18 @@ public class ChartActivity extends AppCompatActivity {
 
         mLineChart.setData(lineData);
 
-        Legend mLegend = mLineChart.getLegend();
+        //Legend mLegend = mLineChart.getLegend();
 
-        mLegend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+        //mLegend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
 
-        mLegend.setForm(Legend.LegendForm.CIRCLE);
+        //mLegend.setForm(Legend.LegendForm.CIRCLE);
 
-        mLegend.setFormSize(15.0f);
+        //mLegend.setFormSize(15.0f);
 
-        mLegend.setTextColor(Color.BLUE);
+        //mLegend.setTextColor(Color.BLUE);
 
         mLineChart.animateX(2000);
+
     }
 
 }

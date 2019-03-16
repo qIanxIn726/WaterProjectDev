@@ -1,5 +1,7 @@
 package com.example.water.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class DetailModel implements Serializable {
@@ -14,6 +16,7 @@ public class DetailModel implements Serializable {
     //@SerializedName("value")
     private String value;
 
+    @SerializedName("unit_symbol")
     private String unitSymbol;
 
     public String getAt() {

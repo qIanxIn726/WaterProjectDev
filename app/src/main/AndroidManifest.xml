@@ -22,6 +22,8 @@
         <activity android:name=".DetailActivity"/>
 
         <activity android:name=".ChartActivity"/>
+
+        <activity android:name=".LineChartMarkView"/>
     </application>
 
 </manifest>
