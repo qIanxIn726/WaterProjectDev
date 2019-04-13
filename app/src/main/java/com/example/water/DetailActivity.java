@@ -39,7 +39,7 @@ public class DetailActivity extends BaseListViewActicty {
 //        http://api.heclouds.com/devices/502129186/datapoints?datastream_id=Cod&amp;start=2017-01-01T00:00:00&amp;limit=100
 //        http://api.heclouds.com/devices/502129186/datapoints?datastream_id=Cod&amp;start=2018-11-25T00:00:00&amp;limit=1000&amp;cursor=182370_502129186_1543116108193
         //APIKey vL3MUb=BBsmII6Q6scQNlArS1ck=
-        String url = Constants.BASE_URL + "datapoints?datastream_id=" + datastreamId + "&limit=100";
+        String url = Constants.BASE_URL + "datapoints?datastream_id=" + datastreamId + "&limit=1000";
         getData(url);
         /*String url = Constants.BASE_URL + "datastreams/" + datastreamId ;//+ "&amp;start=2018-11-25T00:00:00&amp;limit=1000&amp;cursor=182370_502129186_1543116108193 ";
         getData(url);*/
@@ -52,7 +52,7 @@ public class DetailActivity extends BaseListViewActicty {
                 Intent intent = new Intent(DetailActivity.this,ChartActivity.class);
                 Bundle bundleObject = new Bundle();
                 bundleObject.putSerializable("data",dm);
-                bundleObject.putString("paramId",datastreamId);
+                bundleObject.putString("param_Id",datastreamId);
                 intent.putExtras(bundleObject);
                 startActivity(intent);
             }

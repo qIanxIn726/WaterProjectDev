@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.water.StatusBarCompat;
 import com.example.water.Utils.HttpUtils;
 
 import org.json.JSONObject;
 
 import butterknife.ButterKnife;
+
+import static com.example.water.R.color.colorPrimary;
 
 public abstract class BaseActicty extends AppCompatActivity {
 
@@ -17,6 +20,8 @@ public abstract class BaseActicty extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getResourceID());
         ButterKnife.bind(this);
+
+        StatusBarCompat.compat(this, getResources().getColor(colorPrimary));
     }
 
     protected abstract int getResourceID();

@@ -12,7 +12,7 @@ public class Constants {
     public static String PARAM_NTU = "NTU";
     public static String PARAM_TSS = "Tss";
     public static String PARAM_TEMPRETURE = "Tempreture";
-    public static String PARAM_PH = "PH";
-    public static String PARAM_TDS = "TDS";
-    public static String PARAM_ALL = "Cod,Toc,Bod,NTU,Tss,Tempreture,PH,TDS";
+    //public static String PARAM_PH = "PH";
+    //public static String PARAM_TDS = "TDS";
+    public static String PARAM_ALL = "Cod,Toc,Bod,NTU,Tss,Tempreture";
 }

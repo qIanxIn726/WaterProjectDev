@@ -2,18 +2,23 @@ package com.example.water;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.water.Base.BaseActicty;
 import com.example.water.Model.DetailModel;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,18 +26,23 @@ import java.util.Collections;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.graphics.Color.CYAN;
-import static android.graphics.Color.GREEN;
 import static android.graphics.Color.YELLOW;
+import static com.example.water.R.color.black;
 
 /**
  * Created by 华南理工大学物理与光电学院 on 2019/3/9.
  */
 
-public class ChartActivity extends AppCompatActivity {
+public class ChartActivity extends BaseActicty {
 
     @BindView(R.id.tv_title)
     TextView chart_title;
+    private YAxis yAxis;
+
+    int Lev1_a = 0;
+    int Lev1_b = 0;
+    int Lev2 = 0;
+    int Lev3 = 0;
 
     String symbol;
 
@@ -41,15 +51,21 @@ public class ChartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chart);
         ButterKnife.bind(this);
+
 
         Bundle bundleObject = getIntent().getExtras();
 
-        String title = bundleObject.getString("paramId");
+        ArrayList<DetailModel> dm = (ArrayList<DetailModel>) bundleObject.getSerializable("data");
+
+        String title = bundleObject.getString("param_Id");
         switch(title){
             case "Cod":
                 symbol = "mg/l";
+                Lev1_a = 50;
+                Lev1_b = 60;
+                Lev2 = 100;
+                Lev3 = 120;
                 break;
             case "Toc":
                 symbol = "mg/l";
@@ -76,11 +92,11 @@ public class ChartActivity extends AppCompatActivity {
                 break;
         }
 
-        ArrayList<DetailModel> dm = (ArrayList<DetailModel>) bundleObject.getSerializable("data");
-
         chart_title.setText(title);
 
         LineChart chart = (LineChart) findViewById(R.id.chart);
+
+        yAxis = chart.getAxisLeft();
 
         ImageButton btnBack = (ImageButton) findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -100,12 +116,17 @@ public class ChartActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected int getResourceID(){
+        return R.layout.activity_chart;
+    }
+
+    @Override
+    protected void handleData(JSONObject responseObject){}
+
     private LineData makeLineData(ArrayList detailModel) {
         ArrayList<String> x = new ArrayList<>();
         ArrayList<Entry> y = new ArrayList<>();
-
-        //100表示存入最近一百条历史数据
-        final String[] values = new String[100];
 
         for (int i = 0; i < detailModel.size(); i++) {
             DetailModel dModel = (DetailModel) detailModel.get(i);
@@ -117,28 +138,34 @@ public class ChartActivity extends AppCompatActivity {
             y.add(entry);
         }
 
-
         LineDataSet cLineDataSet = new LineDataSet(y, "");
 
         cLineDataSet.setLineWidth(3.0f);
 
         cLineDataSet.setCircleSize(5.0f);
 
-        cLineDataSet.setColor(Color.DKGRAY);
+        //线条颜色
+        cLineDataSet.setColor(getResources().getColor(black));
 
-        cLineDataSet.setCircleColor(GREEN);
+        //数据点外圈颜色
+        cLineDataSet.setCircleColor(getResources().getColor(black));
 
         cLineDataSet.setDrawHighlightIndicators(true);
 
+        //数据点高亮时的横纵线颜色
         cLineDataSet.setHighLightColor(YELLOW);
 
         cLineDataSet.setValueTextSize(10.0f);
 
+        //数据点颜色
         cLineDataSet.setCircleColorHole(YELLOW);
 
         cLineDataSet.setDrawFilled(true);
 
-        cLineDataSet.setFillColor(CYAN);
+        cLineDataSet.setFillAlpha(200);
+
+        //折线下方填充颜色
+        cLineDataSet.setFillColor(YELLOW);
 
 
         /*cLineDataSet.setValueFormatter(new ValueFormatter(){
@@ -169,7 +196,7 @@ public class ChartActivity extends AppCompatActivity {
 
         mLineChart.setDrawGridBackground(false);
 
-        mLineChart.setGridBackgroundColor(CYAN);
+        mLineChart.setGridBackgroundColor(YELLOW);
 
         mLineChart.setTouchEnabled(true);
 
@@ -187,18 +214,52 @@ public class ChartActivity extends AppCompatActivity {
 
         mLineChart.setData(lineData);
 
-        //Legend mLegend = mLineChart.getLegend();
+        //将图例隐藏
+        Legend mLegend = mLineChart.getLegend();
 
-        //mLegend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+        mLegend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
 
-        //mLegend.setForm(Legend.LegendForm.CIRCLE);
+        mLegend.setForm(Legend.LegendForm.CIRCLE);
 
-        //mLegend.setFormSize(15.0f);
+        mLegend.setFormSize(0.0f);
 
-        //mLegend.setTextColor(Color.BLUE);
+        mLegend.setTextColor(Color.RED);
 
-        mLineChart.animateX(2000);
+        mLineChart.animateX(2500);
+        //图例结束
 
+
+        //设置分级线相关样式
+        LimitLine lev1_A = new LimitLine(Lev1_a,"一级标准A");
+        lev1_A.setLineColor(getResources().getColor(black));
+        lev1_A.setLineWidth(2f);
+        lev1_A.setTextColor(getResources().getColor(black));
+        lev1_A.setTextSize(12f);
+
+        LimitLine lev1_B = new LimitLine(Lev1_b,"一级标准B");
+        lev1_B.setLineColor(getResources().getColor(black));
+        lev1_B.setLineWidth(2f);
+        lev1_B.setTextColor(getResources().getColor(black));
+        lev1_B.setTextSize(12f);
+
+        LimitLine lev2 = new LimitLine(Lev2,"二级标准");
+        lev2.setLineColor(getResources().getColor(black));
+        lev2.setLineWidth(2f);
+        lev2.setTextColor(getResources().getColor(black));
+        lev2.setTextSize(12f);
+
+        LimitLine lev3 = new LimitLine(Lev3,"三级标准");
+        lev3.setLineColor(getResources().getColor(black));
+        lev3.setLineWidth(2f);
+        lev3.setTextColor(getResources().getColor(black));
+        lev3.setTextSize(12f);
+
+        if ((Lev1_a*Lev1_b*Lev2*Lev3) != 0){
+            yAxis.addLimitLine(lev1_A);
+            yAxis.addLimitLine(lev1_B);
+            yAxis.addLimitLine(lev2);
+            yAxis.addLimitLine(lev3);
+        }
     }
 
 }

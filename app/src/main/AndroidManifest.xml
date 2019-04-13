@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".WelcomeActivity" android:theme="@style/TranslucentTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,11 +19,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".DetailActivity"/>
+        <activity android:name=".MainActivity" />
 
-        <activity android:name=".ChartActivity"/>
+        <activity android:name=".DetailActivity" />
 
-        <activity android:name=".LineChartMarkView"/>
+        <activity android:name=".ChartActivity" />
     </application>
 
 </manifest>

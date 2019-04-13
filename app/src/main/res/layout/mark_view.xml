@@ -4,17 +4,17 @@
     android:layout_height="wrap_content"
     android:background="@drawable/shape_square">
 
-    <TextView
+    <!---<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_date"
-        android:textColor="@color/grey"/>
+        android:textColor="@color/grey"/>-->
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_value"
-        android:layout_marginTop="5dp"
+        android:layout_margin="3dp"
         android:textColor="@color/grey"/>
 
 </LinearLayout>

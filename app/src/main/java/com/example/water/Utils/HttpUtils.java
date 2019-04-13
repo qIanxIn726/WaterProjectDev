@@ -1,6 +1,7 @@
 package com.example.water.Utils;
 
 import android.content.Context;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -35,7 +36,9 @@ public class HttpUtils {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.d(TAG, "onFailure: ");
+                Looper.prepare();
                 Toast.makeText(context, "please check network state！", Toast.LENGTH_SHORT).show();
+                Looper.loop();
             }
 
             @Override
@@ -48,7 +51,9 @@ public class HttpUtils {
                         requestDataCallback.onSuccess(responseObject);
                         //Toast.makeText(context, "getData success！", Toast.LENGTH_SHORT).show();
                     }else{//请求失败
-                        Toast.makeText(context, "server error code: " + responseObject.getString("error"), Toast.LENGTH_SHORT).show();
+                        Looper.prepare();
+                        Toast.makeText(context, "server error code: " + responseObject.getString("error"), Toast.LENGTH_LONG).show();
+                        Looper.loop();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

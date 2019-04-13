@@ -16,7 +16,7 @@ import java.text.DecimalFormat;
 
 public class LineChartMarkView extends MarkerView {
 
-    private TextView tvDate;
+    //private TextView tvDate;
     private TextView tvValue;
 
     DecimalFormat df = new DecimalFormat(".00");
@@ -24,7 +24,7 @@ public class LineChartMarkView extends MarkerView {
     public LineChartMarkView(Context context){
         super(context,R.layout.mark_view);
 
-        tvDate = findViewById(R.id.tv_date);
+        //tvDate = findViewById(R.id.tv_date);
         tvValue = findViewById(R.id.tv_value);
 
     }
@@ -33,8 +33,8 @@ public class LineChartMarkView extends MarkerView {
     @Override
     public void refreshContent(Entry e, Highlight highlight){
         //展示自定义x轴值后的内容
-        tvDate.setText("时间："+ e.getXIndex());
-        tvValue.setText("参数值："+df.format(e.getVal()));
+        //tvDate.setText("时间："+ e.getXIndex());
+        tvValue.setText("当前值："+df.format(e.getVal()));
     }
 
     @Override

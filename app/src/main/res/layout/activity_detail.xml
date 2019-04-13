@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DetailActivity"
-    android:layout_gravity="bottom">
+    android:layout_gravity="bottom"
+    android:background="@color/colorPrimary"
+    android:fitsSystemWindows="true">
 
     <RelativeLayout
         android:id="@+id/rl_tabbar"
@@ -19,17 +21,17 @@
             android:background="@android:color/transparent"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@mipmap/btn_back"/>
+            android:src="@mipmap/arrow_left"/>
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="污水检测"
+            android:text="水质检测"
             android:textAllCaps="true"
             android:layout_centerInParent="true"
-            android:textSize="18sp"
-            android:textColor="#484948"/>
+            android:textSize="20sp"
+            android:textColor="@color/white"/>
 
         <ImageButton
             android:id="@+id/chart_go"
@@ -39,7 +41,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/btn_forward"/>
+            android:src="@mipmap/arrow_right"/>
 
         <View
             android:layout_width="match_parent"
@@ -53,6 +55,7 @@
         android:layout_below="@+id/rl_tabbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null" />
+        android:divider="@null"
+        android:background="@color/white"/>
 
 </RelativeLayout>
