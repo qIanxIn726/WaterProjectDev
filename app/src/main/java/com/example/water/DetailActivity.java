@@ -36,14 +36,14 @@ public class DetailActivity extends BaseListViewActicty {
         super.onCreate(savedInstanceState);
         final String datastreamId = getIntent().getStringExtra("datastream_id");
         tvTitle.setText(datastreamId);
-//        http://api.heclouds.com/devices/502129186/datapoints?datastream_id=Cod&amp;start=2017-01-01T00:00:00&amp;limit=100
-//        http://api.heclouds.com/devices/502129186/datapoints?datastream_id=Cod&amp;start=2018-11-25T00:00:00&amp;limit=1000&amp;cursor=182370_502129186_1543116108193
         //APIKey vL3MUb=BBsmII6Q6scQNlArS1ck=
+        //获取limit条历史数据
         String url = Constants.BASE_URL + "datapoints?datastream_id=" + datastreamId + "&limit=1000";
         getData(url);
         /*String url = Constants.BASE_URL + "datastreams/" + datastreamId ;//+ "&amp;start=2018-11-25T00:00:00&amp;limit=1000&amp;cursor=182370_502129186_1543116108193 ";
         getData(url);*/
         //LineData cLineData = makeLineData(dm);
+
         //向ChartActivity传递数据
         ImageButton chart_Go = (ImageButton) findViewById(R.id.chart_go);
         chart_Go.setOnClickListener(new View.OnClickListener(){

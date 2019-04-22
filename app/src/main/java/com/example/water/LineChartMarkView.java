@@ -34,16 +34,17 @@ public class LineChartMarkView extends MarkerView {
     public void refreshContent(Entry e, Highlight highlight){
         //展示自定义x轴值后的内容
         //tvDate.setText("时间："+ e.getXIndex());
-        tvValue.setText("当前值："+df.format(e.getVal()));
+        tvValue.setText("当前值："+"\n"+ df.format(e.getVal()));
     }
 
+    //分别设置以markView左下角为基准点的偏移量,横向正值向右，纵向正值向下
     @Override
     public int getXOffset(float xpos) {
-        return -(getWidth() / 2);
+        return -(getWidth()/2);
     }
 
     @Override
     public int getYOffset(float ypos) {
-        return -getHeight();
+        return -(getHeight()*7/6);
     }
 }

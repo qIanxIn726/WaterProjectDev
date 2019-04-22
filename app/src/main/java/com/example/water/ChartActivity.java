@@ -17,6 +17,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 
 import org.json.JSONObject;
 
@@ -26,8 +27,9 @@ import java.util.Collections;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.graphics.Color.YELLOW;
-import static com.example.water.R.color.black;
+import static com.example.water.R.color.blue2;
+import static com.example.water.R.color.grey;
+import static com.example.water.R.color.white;
 
 /**
  * Created by 华南理工大学物理与光电学院 on 2019/3/9.
@@ -37,7 +39,10 @@ public class ChartActivity extends BaseActicty {
 
     @BindView(R.id.tv_title)
     TextView chart_title;
+
     private YAxis yAxis;
+
+    private XAxis xAxis;
 
     int Lev1_a = 0;
     int Lev1_b = 0;
@@ -73,7 +78,7 @@ public class ChartActivity extends BaseActicty {
             case "Bod":
                 symbol = "mg/l";
                 break;
-            case "Ntu":
+            case "NTU":
                 symbol = "ntu";
                 break;
             case "Tss":
@@ -96,6 +101,7 @@ public class ChartActivity extends BaseActicty {
 
         LineChart chart = (LineChart) findViewById(R.id.chart);
 
+        xAxis = chart.getXAxis();
         yAxis = chart.getAxisLeft();
 
         ImageButton btnBack = (ImageButton) findViewById(R.id.btn_back);
@@ -108,7 +114,7 @@ public class ChartActivity extends BaseActicty {
 
         Collections.reverse(dm);
         LineData cLineData = makeLineData(dm);
-        setChartStyle(chart, cLineData, Color.WHITE);
+        setChartStyle(chart, cLineData, getResources().getColor(white));
 
         MarkerView mv = new LineChartMarkView(this);
         chart.setMarkerView(mv);
@@ -145,27 +151,32 @@ public class ChartActivity extends BaseActicty {
         cLineDataSet.setCircleSize(5.0f);
 
         //线条颜色
-        cLineDataSet.setColor(getResources().getColor(black));
+        cLineDataSet.setColor(getResources().getColor(grey));
 
         //数据点外圈颜色
-        cLineDataSet.setCircleColor(getResources().getColor(black));
+        cLineDataSet.setCircleColor(getResources().getColor(grey));
 
         cLineDataSet.setDrawHighlightIndicators(true);
 
         //数据点高亮时的横纵线颜色
-        cLineDataSet.setHighLightColor(YELLOW);
+        cLineDataSet.setHighLightColor(getResources().getColor(grey));
 
+        cLineDataSet.setHighlightLineWidth(2f);
+
+        //设置数据点数字格式
         cLineDataSet.setValueTextSize(10.0f);
 
+        cLineDataSet.setValueTextColor(getResources().getColor(blue2));
+
         //数据点颜色
-        cLineDataSet.setCircleColorHole(YELLOW);
+        cLineDataSet.setCircleColorHole(getResources().getColor(white));
 
         cLineDataSet.setDrawFilled(true);
 
-        cLineDataSet.setFillAlpha(200);
+        cLineDataSet.setFillAlpha(210);
 
         //折线下方填充颜色
-        cLineDataSet.setFillColor(YELLOW);
+        cLineDataSet.setFillColor(getResources().getColor(blue2));
 
 
         /*cLineDataSet.setValueFormatter(new ValueFormatter(){
@@ -194,16 +205,29 @@ public class ChartActivity extends BaseActicty {
 
         mLineChart.setNoDataTextDescription("没有数据熬");
 
-        mLineChart.setDrawGridBackground(false);
-
-        mLineChart.setGridBackgroundColor(YELLOW);
-
         mLineChart.setTouchEnabled(true);
 
         mLineChart.setDragEnabled(true);
 
-        mLineChart.setScaleEnabled(true);
+        mLineChart.setDrawGridBackground(false) ;
 
+        xAxis.setDrawGridLines(false);
+
+        yAxis.setValueFormatter((new YAxisValueFormatter(){
+            @Override
+            public String getFormattedValue(float value, YAxis yAxis){
+                //TODO Auto_generated method stub
+                return ("  " + Float.toString(value)+"  ");
+            }
+        }));
+
+
+        //设置横纵滑动动画
+        mLineChart.setDragDecelerationEnabled(true);
+        mLineChart.setDragDecelerationFrictionCoef(0.96f);
+
+        //设置放大缩小
+        mLineChart.setScaleEnabled(true);
         mLineChart.setPinchZoom(false);
 
         mLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -225,33 +249,39 @@ public class ChartActivity extends BaseActicty {
 
         mLegend.setTextColor(Color.RED);
 
-        mLineChart.animateX(2500);
+        //数据载入动画
+        //mLineChart.animateX(600);
+        mLineChart.animateY(600);
         //图例结束
 
 
         //设置分级线相关样式
         LimitLine lev1_A = new LimitLine(Lev1_a,"一级标准A");
-        lev1_A.setLineColor(getResources().getColor(black));
+        lev1_A.enableDashedLine(10f,3f,0);
+        lev1_A.setLineColor(getResources().getColor(grey));
         lev1_A.setLineWidth(2f);
-        lev1_A.setTextColor(getResources().getColor(black));
+        lev1_A.setTextColor(getResources().getColor(grey));
         lev1_A.setTextSize(12f);
 
         LimitLine lev1_B = new LimitLine(Lev1_b,"一级标准B");
-        lev1_B.setLineColor(getResources().getColor(black));
+        lev1_B.enableDashedLine(10f,3f,0);
+        lev1_B.setLineColor(getResources().getColor(grey));
         lev1_B.setLineWidth(2f);
-        lev1_B.setTextColor(getResources().getColor(black));
+        lev1_B.setTextColor(getResources().getColor(grey));
         lev1_B.setTextSize(12f);
 
         LimitLine lev2 = new LimitLine(Lev2,"二级标准");
-        lev2.setLineColor(getResources().getColor(black));
+        lev2.enableDashedLine(10f,3f,0);
+        lev2.setLineColor(getResources().getColor(grey));
         lev2.setLineWidth(2f);
-        lev2.setTextColor(getResources().getColor(black));
+        lev2.setTextColor(getResources().getColor(grey));
         lev2.setTextSize(12f);
 
         LimitLine lev3 = new LimitLine(Lev3,"三级标准");
-        lev3.setLineColor(getResources().getColor(black));
+        lev3.enableDashedLine(10f,3f,0);
+        lev3.setLineColor(getResources().getColor(grey));
         lev3.setLineWidth(2f);
-        lev3.setTextColor(getResources().getColor(black));
+        lev3.setTextColor(getResources().getColor(grey));
         lev3.setTextSize(12f);
 
         if ((Lev1_a*Lev1_b*Lev2*Lev3) != 0){

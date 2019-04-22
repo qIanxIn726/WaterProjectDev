@@ -2,6 +2,7 @@ package com.example.water.Utils;
 
 import android.content.Context;
 import android.os.Looper;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,7 +17,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class HttpUtils {
+public class HttpUtils extends AppCompatActivity{
 
     private static String TAG = "HttpUtils";
 
@@ -34,10 +35,10 @@ public class HttpUtils {
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(Call call, IOException e){
                 Log.d(TAG, "onFailure: ");
                 Looper.prepare();
-                Toast.makeText(context, "please check network state！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "请检查网络连接！", Toast.LENGTH_SHORT).show();
                 Looper.loop();
             }
 
@@ -54,6 +55,7 @@ public class HttpUtils {
                         Looper.prepare();
                         Toast.makeText(context, "server error code: " + responseObject.getString("error"), Toast.LENGTH_LONG).show();
                         Looper.loop();
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -66,4 +68,5 @@ public class HttpUtils {
     // TODO: 2018/12/22 post请求
     public void postData() {
     }
+
 }

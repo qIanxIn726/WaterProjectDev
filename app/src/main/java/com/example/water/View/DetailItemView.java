@@ -21,6 +21,8 @@ public class DetailItemView extends RelativeLayout {
     /*@BindView(R.id.tv_number)
     TextView tvNumber;*/
 
+    private Context context;
+
     public DetailItemView(Context context) {
         this(context, null);
     }
@@ -34,6 +36,8 @@ public class DetailItemView extends RelativeLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.detail_item_view, this, true);
         ButterKnife.bind(this);
+
+        this.context = context;
     }
 
     public void setData(DetailModel model) {
@@ -41,4 +45,5 @@ public class DetailItemView extends RelativeLayout {
         tvDetail.setText(model.getAt());
         //tvNumber.setText(model.getUnitSymbol());
     }
+
 }

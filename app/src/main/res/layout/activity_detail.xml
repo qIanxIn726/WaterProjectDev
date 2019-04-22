@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".DetailActivity"
     android:layout_gravity="bottom"
-    android:background="@color/colorPrimary"
+    android:background="@color/blue2"
     android:fitsSystemWindows="true">
 
     <RelativeLayout

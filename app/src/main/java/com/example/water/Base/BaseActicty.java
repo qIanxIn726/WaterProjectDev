@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 
-import static com.example.water.R.color.colorPrimary;
+import static com.example.water.R.color.blue2;
 
 public abstract class BaseActicty extends AppCompatActivity {
 
@@ -21,7 +21,7 @@ public abstract class BaseActicty extends AppCompatActivity {
         setContentView(getResourceID());
         ButterKnife.bind(this);
 
-        StatusBarCompat.compat(this, getResources().getColor(colorPrimary));
+        StatusBarCompat.compat(this, getResources().getColor(blue2));
     }
 
     protected abstract int getResourceID();
