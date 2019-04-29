@@ -4,12 +4,13 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="mkBackground">#F7F709</color>
-    <color name="grey">#CCCCCC</color>
+    <color name="grey">#DFCCCCCC</color>
     <color name="light_blue">#0099ff</color>
     <color name="light_green">#33ff99</color>
     <color name="tiffany">#00FFFF</color>
-    <color name="blue1">#004eff</color>
+    <color name="blue1">#DF004eff</color>
     <color name="blue2">#0092ff</color>
     <color name="black">#000000</color>
+    <color name="light_black">#54000000</color>
     <color name="white">#FFFFFF</color>
 </resources>

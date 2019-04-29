@@ -49,12 +49,12 @@ public class DetailActivity extends BaseListViewActicty {
         chart_Go.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(DetailActivity.this,ChartActivity.class);
+                Intent intent1 = new Intent(DetailActivity.this,ChartActivity.class);
                 Bundle bundleObject = new Bundle();
                 bundleObject.putSerializable("data",dm);
                 bundleObject.putString("param_Id",datastreamId);
-                intent.putExtras(bundleObject);
-                startActivity(intent);
+                intent1.putExtras(bundleObject);
+                startActivity(intent1);
             }
         });
     }
