@@ -23,16 +23,6 @@
             android:layout_marginLeft="10dp"
             android:src="@mipmap/arrow_left"/>
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="水质检测"
-            android:textAllCaps="true"
-            android:layout_centerInParent="true"
-            android:textSize="20sp"
-            android:textColor="@color/white"/>
-
         <ImageButton
             android:id="@+id/chart_go"
             android:layout_width="wrap_content"
@@ -48,6 +38,29 @@
             android:layout_height="1dp"
             android:background="#D4D6D5"
             android:layout_alignParentBottom="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_title1"
+            android:text="参数名"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/tv_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="描述"
+            android:textAllCaps="true"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="10dp"/>
     </RelativeLayout>
 
     <ListView

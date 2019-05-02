@@ -109,10 +109,10 @@ public class MainActivity extends BaseListViewActicty {
             NetworkInfo netInfo = conManager.getActiveNetworkInfo();
             if (netInfo != null && netInfo.isAvailable()){
                 if (netInfo.getType() == ConnectivityManager.TYPE_WIFI && netCheckTimes > 0){
-                    Toast.makeText(MainActivity.this,"WIFI连接已恢复", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"WIFI连接已启用", Toast.LENGTH_SHORT).show();
                     netCheckTimes = 0;
                 }else if (netInfo.getType() == ConnectivityManager.TYPE_MOBILE && netCheckTimes > 0){
-                    Toast.makeText(MainActivity.this,"移动数据连接已恢复", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"移动数据连接已启用", Toast.LENGTH_SHORT).show();
                     netCheckTimes = 0;
                 }
                 getData(url);

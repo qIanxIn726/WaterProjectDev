@@ -15,7 +15,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 
 import java.text.DecimalFormat;
 
-import static com.example.water.R.color.blue1;
+import static com.example.water.R.color.blue2;
 
 /**
  * Created by 华南理工大学物理与光电学院 on 2019/3/14.
@@ -26,9 +26,11 @@ public class LineChartMarkView extends MarkerView {
     private TextView tvValue;
     DecimalFormat df = new DecimalFormat(".00");
 
-    int cordinate1;
-    int cordinate2;
-    int xpos1;
+    private int cordinate1;
+    private int cordinate2;
+    private int xpos1;
+    private int osX;
+    private int osY;
 
     Resources resources = this.getResources();
     DisplayMetrics dm = resources.getDisplayMetrics();
@@ -69,27 +71,30 @@ public class LineChartMarkView extends MarkerView {
 
     protected void onDraw(Canvas canvas){
 
+        osX = getWidth()/12;
+        osY = getHeight()/5;
+        //getX(),getY()得到markerview左上角坐标
         cordinate1 = (int) getX();
         cordinate2 = (int) getY();
         super.onDraw(canvas);
         Paint p = new Paint();
-        p.setColor(getResources().getColor(blue1));
+        p.setColor(getResources().getColor(blue2));
         Path path = new Path();
         //顺时针方向描点
         //x轴向右为正方向
         //y轴向下为正方向
         if (xpos1 < getWidth() / 2){
-            path.moveTo(cordinate1+getWidth()/2 - 30 - getWidth()/2 + xpos1,cordinate2+getHeight()-5);
-            path.lineTo(cordinate1+getWidth()/2 - getWidth()/2 + xpos1,cordinate2 + 190);
-            path.lineTo(cordinate1+getWidth()/2 + 30- getWidth()/2 + xpos1,cordinate2+getHeight()-5);
+            path.moveTo(cordinate1+getWidth()/2 - osX - getWidth()/2 + xpos1,cordinate2+getHeight()-5);
+            path.lineTo(cordinate1+getWidth()/2 - getWidth()/2 + xpos1,cordinate2 + getHeight() + osY);
+            path.lineTo(cordinate1+getWidth()/2 + osX- getWidth()/2 + xpos1,cordinate2+getHeight()-5);
         }else if (xpos1 > width - getWidth() / 2){
-            path.moveTo(cordinate1+getWidth()/2 - 30 + (getWidth()/2 - (width - xpos1)),cordinate2+getHeight()-5);
-            path.lineTo(cordinate1+getWidth()/2 + (getWidth()/2 - (width - xpos1)),cordinate2 + 190);
-            path.lineTo(cordinate1+getWidth()/2 + 30 + (getWidth()/2 - (width - xpos1)),cordinate2+getHeight()-5);
+            path.moveTo(cordinate1+getWidth()/2 - osX + (getWidth()/2 - (width - xpos1)),cordinate2+getHeight()-5);
+            path.lineTo(cordinate1+getWidth()/2 + (getWidth()/2 - (width - xpos1)),cordinate2 + getHeight() + osY);
+            path.lineTo(cordinate1+getWidth()/2 + osX + (getWidth()/2 - (width - xpos1)),cordinate2+getHeight()-5);
         }else{
-            path.moveTo(cordinate1+getWidth()/2 - 30,cordinate2+getHeight()-5);
-            path.lineTo(cordinate1+getWidth()/2,cordinate2 + 190);
-            path.lineTo(cordinate1+getWidth()/2 + 30,cordinate2+getHeight()-5);
+            path.moveTo(cordinate1+getWidth()/2 - osX,cordinate2+getHeight()-5);
+            path.lineTo(cordinate1+getWidth()/2,cordinate2 +getHeight() + osY);
+            path.lineTo(cordinate1+getWidth()/2 + osX,cordinate2+getHeight()-5);
         }
         path.close();
         canvas.drawPath(path,p);

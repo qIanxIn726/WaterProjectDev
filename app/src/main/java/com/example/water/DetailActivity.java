@@ -26,19 +26,28 @@ import butterknife.OnClick;
 public class DetailActivity extends BaseListViewActicty {
 
 
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
+    @BindView(R.id.tv_title1)
+    TextView tvTitle1;
+
+    @BindView(R.id.tv_title2)
+    TextView tvTitle2;
 
     ArrayList<DetailModel> dm = new ArrayList<DetailModel>();
+
+    private int num;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final String datastreamId = getIntent().getStringExtra("datastream_id");
-        tvTitle.setText(datastreamId);
+
+        // 选择获得多少历史数据
+        num = 1000;
+        tvTitle1.setText(datastreamId);
+        tvTitle2.setText("最近"+num+"条历史数据");
         //APIKey vL3MUb=BBsmII6Q6scQNlArS1ck=
         //获取limit条历史数据
-        String url = Constants.BASE_URL + "datapoints?datastream_id=" + datastreamId + "&limit=1000";
+        String url = Constants.BASE_URL + "datapoints?datastream_id=" + datastreamId + "&limit=" + num;
         getData(url);
         /*String url = Constants.BASE_URL + "datastreams/" + datastreamId ;//+ "&amp;start=2018-11-25T00:00:00&amp;limit=1000&amp;cursor=182370_502129186_1543116108193 ";
         getData(url);*/

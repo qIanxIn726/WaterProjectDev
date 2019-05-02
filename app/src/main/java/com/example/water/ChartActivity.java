@@ -39,8 +39,10 @@ import static com.example.water.R.color.white;
 
 public class ChartActivity extends BaseActicty {
 
-    @BindView(R.id.tv_title)
-    TextView chart_title;
+    @BindView(R.id.tv_title1)
+    TextView chart_title1;
+    @BindView(R.id.tv_title2)
+    TextView chart_title2;
 
     private YAxis yAxisLeft;
     private YAxis yAxisRight;
@@ -100,7 +102,8 @@ public class ChartActivity extends BaseActicty {
                 break;
         }
 
-        chart_title.setText(title);
+        chart_title1.setText(title);
+        chart_title2.setText("数据走势折线图");
 
         LineChart chart = (LineChart) findViewById(R.id.chart);
 
@@ -157,8 +160,8 @@ public class ChartActivity extends BaseActicty {
         cLineDataSet.setCircleColor(getResources().getColor(grey));
 
         //纵横线部分
-        // 暂时先选是
-        cLineDataSet.setDrawHighlightIndicators(true);
+        // 暂时先选是,有了markerview下三角后，取消纵横线
+        cLineDataSet.setDrawHighlightIndicators(false);
         //颜色
         cLineDataSet.setHighLightColor(getResources().getColor(grey));
         //宽度

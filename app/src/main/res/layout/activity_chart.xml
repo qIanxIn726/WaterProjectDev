@@ -19,13 +19,29 @@
             android:src="@mipmap/arrow_left"/>
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_title1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAllCaps="true"
             android:layout_centerInParent="true"
-            android:textSize="20sp"
-            android:textColor="@color/white"/>
+            android:text="参数名"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="true"
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:text="描述"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="10dp"/>
+
 
         <View
             android:layout_width="match_parent"
