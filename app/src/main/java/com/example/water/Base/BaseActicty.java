@@ -18,16 +18,23 @@ public abstract class BaseActicty extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //为活动找到布局文件
         setContentView(getResourceID());
         ButterKnife.bind(this);
 
+        //给状态栏上色
         StatusBarCompat.compat(this, getResources().getColor(blue2));
     }
 
+    //获得布局文件的方法
     protected abstract int getResourceID();
 
+    //处理数据的方法
     protected abstract void handleData(JSONObject responseObject);
 
+    //获取数据的方法
+    //调用HttpUtils中的getData方法，并在其中重新定义RequestDataCallback中的onSuccess方法
     public void getData(final String url){
         HttpUtils.getData(this, url, new HttpUtils.RequestDataCallback() {
             @Override

@@ -17,7 +17,7 @@ public class HomepageModel {
             put(Constants.PARAM_NTU, R.mipmap.param_icon_3);
             put(Constants.PARAM_TSS, R.mipmap.param_icon_4);
             put(Constants.PARAM_TEMPRETURE, R.mipmap.param_icon_5);
-            //put(Constants.PARAM_PH, R.mipmap.param_icon_6);
+            put(Constants.PARAM_Waterbar, R.mipmap.param_icon_6);
             //put(Constants.PARAM_TDS, R.mipmap.param_icon_7);
         }
     };

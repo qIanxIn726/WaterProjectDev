@@ -22,6 +22,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.example.water.R.color.blue2;
+
 public class MainActivity extends BaseListViewActicty {
 
     private SwipeRefreshLayout swipe;
@@ -42,7 +44,7 @@ public class MainActivity extends BaseListViewActicty {
 
         //设置下拉刷新数据
         swipe = (SwipeRefreshLayout) findViewById(R.id.swipe);
-        swipe.setColorSchemeResources(R.color.blue2);
+        swipe.setColorSchemeResources(blue2);
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
             public void onRefresh(){
@@ -54,6 +56,7 @@ public class MainActivity extends BaseListViewActicty {
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
         networkChangeReceiver = new NetworkChangeReceiver();
         registerReceiver(networkChangeReceiver,intentFilter);
+
     }
 
     @Override

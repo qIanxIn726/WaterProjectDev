@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.water.Base.BaseListViewActicty;
 import com.example.water.Model.DetailModel;
@@ -32,6 +35,9 @@ public class DetailActivity extends BaseListViewActicty {
     @BindView(R.id.tv_title2)
     TextView tvTitle2;
 
+    @BindView(R.id.list_view)
+    ListView listView;
+
     ArrayList<DetailModel> dm = new ArrayList<DetailModel>();
 
     private int num;
@@ -42,7 +48,7 @@ public class DetailActivity extends BaseListViewActicty {
         final String datastreamId = getIntent().getStringExtra("datastream_id");
 
         // 选择获得多少历史数据
-        num = 1000;
+        num = 500;
         tvTitle1.setText(datastreamId);
         tvTitle2.setText("最近"+num+"条历史数据");
         //APIKey vL3MUb=BBsmII6Q6scQNlArS1ck=
@@ -114,6 +120,13 @@ public class DetailActivity extends BaseListViewActicty {
             }
             DetailItemView itemView = (DetailItemView) view;
             itemView.setData((DetailModel) listArray.get(i));
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?>parent,View view,int position,long id){
+                    DetailModel detailModel = (DetailModel)listArray.get(position);
+                    Toast.makeText(DetailActivity.this,detailModel.getAt(),Toast.LENGTH_SHORT);
+                }
+            });
             return itemView;
         }
     }

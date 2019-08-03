@@ -55,7 +55,6 @@ public class HttpUtils extends AppCompatActivity{
                         Looper.prepare();
                         Toast.makeText(context, "server error code: " + responseObject.getString("error"), Toast.LENGTH_LONG).show();
                         Looper.loop();
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.water.Base.BaseActicty;
 import com.example.water.Model.DetailModel;
+import com.example.water.View.LineChartMarkView;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.MarkerView;
@@ -31,6 +32,7 @@ import static com.example.water.R.color.black;
 import static com.example.water.R.color.blue2;
 import static com.example.water.R.color.grey;
 import static com.example.water.R.color.light_black;
+import static com.example.water.R.color.transparent;
 import static com.example.water.R.color.white;
 
 /**
@@ -98,6 +100,9 @@ public class ChartActivity extends BaseActicty {
             case "TDS":
                 symbol = "mg/l";
                 break;
+            case "Waterbar":
+                symbol = "bar ";
+                break;
             default:
                 break;
         }
@@ -124,7 +129,6 @@ public class ChartActivity extends BaseActicty {
 
         MarkerView mv = new LineChartMarkView(this);
         chart.setMarkerView(mv);
-
 
     }
 
@@ -171,7 +175,7 @@ public class ChartActivity extends BaseActicty {
         //大小
         cLineDataSet.setValueTextSize(10.0f);
         //颜色
-        cLineDataSet.setValueTextColor(getResources().getColor(blue2));
+        cLineDataSet.setValueTextColor(getResources().getColor(black));
         //圆圈中心颜色
         cLineDataSet.setCircleColorHole(getResources().getColor(white));
 
@@ -197,7 +201,7 @@ public class ChartActivity extends BaseActicty {
         //图表描述，默认显示位置右下角
         mLineChart.setDescription("单位：" + symbol);
         mLineChart.setDescriptionTextSize(20f);
-        mLineChart.setDescriptionColor(black);
+        mLineChart.setDescriptionColor(getResources().getColor(transparent));
         //无数据时的显示内容
         mLineChart.setNoDataTextDescription("没有数据熬");
 
@@ -210,7 +214,9 @@ public class ChartActivity extends BaseActicty {
         //网格线
         xAxis.setDrawGridLines(false);
         //标签间隔,自定义的标签无法设置间隔
-        //xAxis.setSpaceBetweenLabels(2);
+        //xAxis.setSpaceBetweenLabels(3);
+        //标签旋转角度
+        //xAxis.setLabelRotationAngle(10f);
         //标签大小
         xAxis.setTextSize(12f);
         //避免首末标签出界
@@ -226,8 +232,9 @@ public class ChartActivity extends BaseActicty {
         //y轴设置
         //标签大小
         yAxisLeft.setTextSize(12f);
-        //顶部预留空间大小
-        yAxisLeft.setSpaceTop(45);
+        //顶部、底部预留空间大小
+        yAxisLeft.setSpaceTop(45f);
+        yAxisLeft.setSpaceBottom(30);
         //数据格式转换
         yAxisLeft.setValueFormatter((new YAxisValueFormatter(){
             @Override

@@ -46,4 +46,5 @@ public class DetailItemView extends RelativeLayout {
         //tvNumber.setText(model.getUnitSymbol());
     }
 
+
 }

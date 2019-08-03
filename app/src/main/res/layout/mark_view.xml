@@ -9,13 +9,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_date"
         android:layout_margin="4dp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/black"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_value"
         android:layout_margin="4dp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/black"/>
 
 </LinearLayout>
